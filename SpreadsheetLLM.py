@@ -51,8 +51,8 @@ class SpreadsheetLLM():
     
     def call(self, prompt):
 	    client = AzureOpenAI(
-	    azure_endpoint=os.getenv['ENDPOINT'],
-	    api_key=os.getenv['OPENAI_API_KEY'],
+	    azure_endpoint=os.getenv('ENDPOINT'),
+	    api_key=os.getenv('OPENAI_API_KEY'),
 	    api_version="2024-10-01-preview",
 	)
 	    completion = client.chat.completions.create(
