@@ -50,18 +50,18 @@ class SpreadsheetLLM():
         self.model = model
     
     def call(self, prompt):
-	   client = AzureOpenAI(
-            azure_endpoint=os.getenv['ENDPOINT'],
-            api_key=os.getenv['OPENAI_API_KEY'],
-            api_version="2024-10-01-preview",
-        )
-          completion = client.chat.completions.create(
-            model="gpt-4o",
-            messages=[
-              {"role": "user", "content": prompt}
-            ]
-          )
-          return completion.choices[0].message.content
+	    client = AzureOpenAI(
+	    azure_endpoint=os.getenv['ENDPOINT'],
+	    api_key=os.getenv['OPENAI_API_KEY'],
+	    api_version="2024-10-01-preview",
+	)
+	    completion = client.chat.completions.create(
+	    model="gpt-4o",
+	    messages=[
+	      {"role": "user", "content": prompt}
+	    ]
+	  )
+	    return completion.choices[0].message.content
     
     def identify_table(self, table):
         global PROMPT_TABLE
