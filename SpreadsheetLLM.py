@@ -21,8 +21,8 @@ INPUT: """
 #Part 1 of CoS
 STAGE_1_PROMPT = """INSTRUCTION:
 Below is a question about one certain table in this spreadsheet.
-I need you to determine in which table the answer to the following question can be found, and return the RANGE of the ONE table you choose, LIKE ['range':'A1:F9'].
-DON'T ADD OTHER WORDS OR EXPLANATION.
+Answer to the question based **strictly and only** based on the content fron the table.
+Add attribution in the response to know which cells contribution to the response.
 INPUT: """
 
 #Part 2 of CoS (after filtering out table)
@@ -68,8 +68,7 @@ class SpreadsheetLLM():
         return self.call(PROMPT_TABLE + str(table))
 
     def question_answer(self, table, question):
-        global STAGE_1_PROMPT
-        global STAGE_2_PROMPT
 
-        table_range = self.call(STAGE_1_PROMPT + str(table) + '\n QUESTION:' + question)
-        return self.call(STAGE_2_PROMPT + str(question + table_range + '\n QUESTION:' + question))
+        #table_range = 
+	return self.call(STAGE_1_PROMPT + str(table) + '\n QUESTION:' + question)
+        #return self.call(STAGE_2_PROMPT + str(question + table_range + '\n QUESTION:' + question))
