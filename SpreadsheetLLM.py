@@ -3,21 +3,6 @@ import transformers
 
 from huggingface_hub import InferenceClient
 from openai import AzureOpenAI
-
-#If you only want to check how many tables
-PROMPT_TABLE = """INSTRUCTION:
-Given an input that is a string denoting data of cells in a table.
-The input table contains many tuples, describing the cells with content in the spreadsheet.
-Each tuple consists of two elements separated by a '|': the cell content and the cell address/region, like (Year|A1), ( |A1) or (IntNum|A1:B3).
-The content in some cells such as '#,##0'/'d-mmm-yy'/'H:mm:ss',etc., represents the CELL DATA FORMATS of Excel.
-The content in some cells such as 'IntNum'/'DateData'/'EmailData',etc., represents a category of data with the same format and similar semantics.
-For example, 'IntNum' represents integer type data, and 'ScientificNum' represents scientific notation type data.
-'A1:B3' represents a region in a spreadsheet, from the first row to the third row and from column A to column B.
-Some cells with empty content in the spreadsheet are not entered.
-How many tables are there in the spreadsheet?
-DON'T ADD OTHER WORDS OR EXPLANATION.
-INPUT: """
-
 #Part 1 of CoS
 STAGE_1_PROMPT = """INSTRUCTION:
 Below is a question about one certain table in this spreadsheet.
@@ -49,10 +34,7 @@ class SpreadsheetLLM():
 	    ]
 	  )
 	    return completion.choices[0].message.content
-    
-    def identify_table(self, table):
-        global PROMPT_TABLE
-        return self.call(PROMPT_TABLE + str(table))
+
 
     def question_answer(self, table, question):
 	    return self.call(STAGE_1_PROMPT + str(table) + '\n QUESTION:' + question)
