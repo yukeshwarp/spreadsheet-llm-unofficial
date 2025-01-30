@@ -25,19 +25,6 @@ Answer to the question based **strictly and only** based on the content fron the
 Add attribution in the response to know which cells contribution to the response.
 INPUT: """
 
-#Part 2 of CoS (after filtering out table)
-STAGE_2_PROMPT = """INSTRUCTION:
-Given an input that is a string denoting data of cells in a table and a question about this table.
-The answer to the question can be found in the table.
-The input table includes many pairs, and each pair consists of a cell address and the text in that cell with a ',' in between, like 'A1,Year'.
-Cells are separated by '|' like 'A1,Year|A2,Profit'.
-The text can be empty so the cell data is like 'A1, |A2,Profit'.
-The cells are organized in row-major order.
-The answer to the input question is contained in the input table and can be represented by cell address.
-I need you to find the cell address of the answer in the given table based on the given question description, and return the cell ADDRESS of the answer like '[B3]' or '[SUM(A2:A10)]'.
-DON'T ADD ANY OTHER WORDS."
-INPUT: """
-
 MODEL_DICT = {'mistral': 'mistralai/Mistral-7B-Instruct-v0.2',
               'llama-2': 'meta-llama/Llama-2-7b-chat-hf',
               'llama-3': 'meta-llama/Meta-Llama-3-8B-Instruct',
