@@ -68,7 +68,7 @@ class SpreadsheetLLM():
         return self.call(PROMPT_TABLE + str(table))
 
     def question_answer(self, table, question):
-
+	    return self.call(STAGE_1_PROMPT + str(table) + '\n QUESTION:' + question)
         #table_range = 
-	return self.call(STAGE_1_PROMPT + str(table) + '\n QUESTION:' + question)
+	
         #return self.call(STAGE_2_PROMPT + str(question + table_range + '\n QUESTION:' + question))
