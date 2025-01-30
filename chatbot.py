@@ -33,7 +33,7 @@ wrapper = SpreadsheetLLMWrapper()
 
 with st.sidebar:
     file = st.file_uploader("Upload Spreadsheet", type='xls')
-    model_name = st.selectbox("Model", ('gpt-3.5', 'gpt-4', 'mistral', 'llama-2', 'llama-3', 'phi-3'))
+    model_name = 'gpt-4'
     if st.button('Identify Number of Tables'):
         st.session_state.messages.append({"role": "user", "content": "Identify Number of Tables"})
         identify_table(wrapper, model_name)
