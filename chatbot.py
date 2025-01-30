@@ -38,8 +38,7 @@ with st.sidebar:
         st.session_state.messages.append({"role": "user", "content": "Identify Number of Tables"})
         identify_table(wrapper, model_name)
 
-st.title("💬 SpreadsheetGPT")
-st.caption("🚀 Chatbot for SpreadsheetLLM")
+st.title("SpreadsheetGPT")
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
