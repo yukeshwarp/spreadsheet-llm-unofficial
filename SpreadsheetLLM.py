@@ -2,7 +2,7 @@ import os
 import transformers
 
 from huggingface_hub import InferenceClient
-from openai import OpenAI
+from openai import AzureOpenAI
 
 #If you only want to check how many tables
 PROMPT_TABLE = """INSTRUCTION:
