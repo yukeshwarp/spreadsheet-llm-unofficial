@@ -56,7 +56,7 @@ class SpreadsheetLLM():
 	    completion = client.chat.completions.create(
 	    model="gpt-4o",
 	    messages=[
-		{"role" : "system", "content" : PROMPT_TABLE
+		{"role" : "system", "content" : PROMPT_TABLE},
 	      {"role": "user", "content": prompt}
 	    ]
 	  )
