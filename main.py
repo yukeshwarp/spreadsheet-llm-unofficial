@@ -42,13 +42,13 @@ class SpreadsheetLLMWrapper:
         # #Encoding 
         markdown = sheet_compressor.encode(wb, sheet) #Paper encodes first then anchors; I chose to do this in reverse
 
-        # #Data-Format Aggregation
-        # markdown['Category'] = markdown['Value'].apply(lambda x: sheet_compressor.get_category(x))
-        # category_dict = sheet_compressor.inverted_category(markdown) 
-        # try:
-        #     areas = sheet_compressor.identical_cell_aggregation(sheet, category_dict)
-        # except RecursionError:
-        #     return
+        #Data-Format Aggregation
+        markdown['Category'] = markdown['Value'].apply(lambda x: sheet_compressor.get_category(x))
+        category_dict = sheet_compressor.inverted_category(markdown) 
+        try:
+            areas = sheet_compressor.identical_cell_aggregation(sheet, category_dict)
+        except RecursionError:
+            return
 
         # # #Inverted-index Translation
         # compress_dict = sheet_compressor.inverted_index(markdown)
