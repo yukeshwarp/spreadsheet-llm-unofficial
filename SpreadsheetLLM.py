@@ -48,28 +48,18 @@ class SpreadsheetLLM():
         self.model = model
     
     def call(self, prompt):
-        if self.model == 'gpt-3.5' or self.model == 'gpt-4': #OpenAI API
-          completion = OpenAI(api_key=os.environ['OPENAI_API_KEY']).chat.completions.create(
-            model=MODEL_DICT[self.model],
-            messages=[
-              {"role": "user", "content": prompt}
-            ]
-          )
-          return completion.choices[0].message.content
-        else: #Transformers InferenceClient
-            output = ''
-            client = InferenceClient(
-              MODEL_DICT[self.model],
-              token=os.environ['HUGGING_FACE_KEY'],
-            )
-            for message in client.chat_completion(
-	            messages=[{"role": "user", "content": prompt}],
-	            max_tokens=500,
-	            stream=True,
-            ):
-                output += message.choices[0].delta.content
-            return output
-    
+	    client = AzureOpenAI(
+	    azure_endpoint=os.getenv('ENDPOINT'),
+	    api_key=os.getenv('OPENAI_API_KEY'),
+	    api_version="2024-10-01-preview",
+	)
+	    completion = client.chat.completions.create(
+	    model="gpt-4o",
+	    messages=[
+	      {"role": "user", "content": prompt}
+	    ]
+	  )
+	    return completion.choices[0].message.content    
     def identify_table(self, table):
         global PROMPT_TABLE
         return self.call(PROMPT_TABLE + str(table))
