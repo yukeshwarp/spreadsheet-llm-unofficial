@@ -70,4 +70,4 @@ class SpreadsheetLLM():
         global STAGE_2_PROMPT
 
         #table_range = self.call(STAGE_1_PROMPT + str(table) + '\n QUESTION:' + question)
-        return self.call(STAGE_2_PROMPT + str(table) + '\n QUESTION:' + question)
+        return self.call(STAGE_2_PROMPT + str(table) + '\n QUESTION:' + question), str(table)
