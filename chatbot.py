@@ -57,6 +57,7 @@ if prompt := st.chat_input():
         st.chat_message("assistant").write("Please upload an Excel file first")
     else:
         areas, compress_dict = process_sheet(wrapper)
-        output = wrapper.llm(args, areas, compress_dict)
+        output, tf = wrapper.llm(args, areas, compress_dict)
         st.session_state.messages.append({"role": "assistant", "content": output})
         st.chat_message("assistant").write(output)
+        st.markdown(f"Table on focus\n {tf}")
