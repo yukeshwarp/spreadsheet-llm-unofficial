@@ -5,9 +5,10 @@ from huggingface_hub import InferenceClient
 from openai import AzureOpenAI
 #Part 1 of CoS
 STAGE_1_PROMPT = """INSTRUCTION:
-Below is a question about one certain table in this spreadsheet.
-Answer to the question based **strictly and only** based on the content fron the table.
-Add attribution in the response to know which cells contribution to the response.
+- Below is a question about one certain table in this spreadsheet.
+- Answer to the question based **strictly and only** based on the content fron the table.
+- Respond with all relevant content to the question in detail and well explained manner.
+- Present the response in a human redable format.
 INPUT: """
 
 MODEL_DICT = {'mistral': 'mistralai/Mistral-7B-Instruct-v0.2',
