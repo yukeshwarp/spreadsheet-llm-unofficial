@@ -58,11 +58,11 @@ class SpreadsheetLLMWrapper:
     def llm(self, args, area, table):
         spreadsheet_llm = SpreadsheetLLM(args.model)
         output = ''
-        if args.table:
-            output += spreadsheet_llm.identify_table(area) + '\n'
+        # if args.table:
+        #     output += spreadsheet_llm.identify_table(area) + '\n'
         if args.question:
-            output += spreadsheet_llm.question_answer(table, args.question)
-        return output
+            output, table = spreadsheet_llm.question_answer(table, args.question)
+        return output, table
         
     def write_areas(self, file, areas):
         string = ''
