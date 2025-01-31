@@ -5,7 +5,9 @@ from huggingface_hub import InferenceClient
 from openai import AzureOpenAI
 
 #If you only want to check how many tables
-PROMPT_TABLE = """INSTRUCTION:
+PROMPT_TABLE = """
+You are an expert in analyzing spreadsheet data. Analyze the given table content and respond to the question asked by the user.
+INSTRUCTION:
 Given an input that is a string denoting data of cells in a table.
 The input table contains many tuples, describing the cells with content in the spreadsheet.
 Each tuple consists of two elements separated by a '|': the cell content and the cell address/region, like (Year|A1), ( |A1) or (IntNum|A1:B3).
@@ -14,9 +16,7 @@ The content in some cells such as 'IntNum'/'DateData'/'EmailData',etc., represen
 For example, 'IntNum' represents integer type data, and 'ScientificNum' represents scientific notation type data.
 'A1:B3' represents a region in a spreadsheet, from the first row to the third row and from column A to column B.
 Some cells with empty content in the spreadsheet are not entered.
-How many tables are there in the spreadsheet?
-DON'T ADD OTHER WORDS OR EXPLANATION.
-INPUT: """
+"""
 
 #Part 1 of CoS
 STAGE_1_PROMPT = """INSTRUCTION:
@@ -56,6 +56,7 @@ class SpreadsheetLLM():
 	    completion = client.chat.completions.create(
 	    model="gpt-4o",
 	    messages=[
+		{"role" : "system", "content" : PROMPT_TABLE
 	      {"role": "user", "content": prompt}
 	    ]
 	  )
@@ -68,5 +69,5 @@ class SpreadsheetLLM():
         global STAGE_1_PROMPT
         global STAGE_2_PROMPT
 
-        table_range = self.call(STAGE_1_PROMPT + str(table) + '\n QUESTION:' + question)
-        return self.call(STAGE_2_PROMPT + str(question + table_range + '\n QUESTION:' + question))
+        #table_range = self.call(STAGE_1_PROMPT + str(table) + '\n QUESTION:' + question)
+        return self.call(STAGE_2_PROMPT + str(table) + '\n QUESTION:' + question)
