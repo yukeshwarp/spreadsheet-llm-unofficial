@@ -60,4 +60,4 @@ if prompt := st.chat_input():
         output, tf = wrapper.llm(args, areas, compress_dict)
         st.session_state.messages.append({"role": "assistant", "content": output})
         st.chat_message("assistant").write(output)
-        #st.markdown(f"Table on focus\n {tf}")
+        st.markdown(f"Table on focus\n {tf}")
