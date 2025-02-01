@@ -53,7 +53,7 @@ class SpreadsheetLLMWrapper:
         # #Inverted-index Translation
         compress_dict = sheet_compressor.inverted_index(markdown)
 
-        return areas, sheet
+        return areas, compress_dict
 
     def llm(self, args, area, table):
         spreadsheet_llm = SpreadsheetLLM(args.model)
