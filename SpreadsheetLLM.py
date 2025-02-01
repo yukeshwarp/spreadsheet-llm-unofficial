@@ -58,7 +58,8 @@ class SpreadsheetLLM():
 	    messages=[
 		{"role" : "system", "content" : PROMPT_TABLE},
 	      {"role": "user", "content": prompt}
-	    ]
+	    ],
+	    temperature = 0.0
 	  )
 	    return completion.choices[0].message.content    
     def identify_table(self, table):
