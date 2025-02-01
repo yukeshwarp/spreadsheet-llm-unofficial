@@ -37,7 +37,7 @@ class SpreadsheetLLMWrapper:
         sheet.columns = list(range(len(sheet.columns)))
 
         #Structural-anchor-based Extraction
-        sheet = sheet_compressor.anchor(sheet)
+        # sheet = sheet_compressor.anchor(sheet)
 
         # #Encoding 
         markdown = sheet_compressor.encode(wb, sheet) #Paper encodes first then anchors; I chose to do this in reverse
@@ -53,7 +53,7 @@ class SpreadsheetLLMWrapper:
         # #Inverted-index Translation
         compress_dict = sheet_compressor.inverted_index(markdown)
 
-        return areas, markdown
+        return areas, sheet
 
     def llm(self, args, area, table):
         spreadsheet_llm = SpreadsheetLLM(args.model)
