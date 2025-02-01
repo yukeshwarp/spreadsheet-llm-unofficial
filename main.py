@@ -30,19 +30,19 @@ class SpreadsheetLLMWrapper:
         sheet = pd.read_excel(wb, engine='xlrd')
         # sheet = sheet.apply(lambda x: x.str.replace('\n', '<br>') if x.dtype == 'object' else x)
 
-        #Move columns to row 1
-        sheet.loc[-1] = sheet.columns
-        sheet.index += 1
-        sheet.sort_index(inplace=True)
-        sheet.columns = list(range(len(sheet.columns)))
+        # #Move columns to row 1
+        # sheet.loc[-1] = sheet.columns
+        # sheet.index += 1
+        # sheet.sort_index(inplace=True)
+        # sheet.columns = list(range(len(sheet.columns)))
 
-        #Structural-anchor-based Extraction
-        sheet = sheet_compressor.anchor(sheet)
+        # #Structural-anchor-based Extraction
+        # sheet = sheet_compressor.anchor(sheet)
 
-        #Encoding 
+        # #Encoding 
         markdown = sheet_compressor.encode(wb, sheet) #Paper encodes first then anchors; I chose to do this in reverse
 
-        # #Data-Format Aggregation
+        #Data-Format Aggregation
         markdown['Category'] = markdown['Value'].apply(lambda x: sheet_compressor.get_category(x))
         category_dict = sheet_compressor.inverted_category(markdown) 
         try:
@@ -51,9 +51,9 @@ class SpreadsheetLLMWrapper:
             return
 
         # # #Inverted-index Translation
-        compress_dict = sheet_compressor.inverted_index(markdown)
+        # compress_dict = sheet_compressor.inverted_index(markdown)
 
-        return areas, compress_dict
+        return areas, markdown
 
     def llm(self, args, area, table):
         spreadsheet_llm = SpreadsheetLLM(args.model)
