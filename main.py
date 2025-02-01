@@ -28,16 +28,16 @@ class SpreadsheetLLMWrapper:
     def compress_spreadsheet(self, wb):
         sheet_compressor = SheetCompressor()
         sheet = pd.read_excel(wb, engine='xlrd')
-        # sheet = sheet.apply(lambda x: x.str.replace('\n', '<br>') if x.dtype == 'object' else x)
+        sheet = sheet.apply(lambda x: x.str.replace('\n', '<br>') if x.dtype == 'object' else x)
 
-        # #Move columns to row 1
-        # sheet.loc[-1] = sheet.columns
-        # sheet.index += 1
-        # sheet.sort_index(inplace=True)
-        # sheet.columns = list(range(len(sheet.columns)))
+        #Move columns to row 1
+        sheet.loc[-1] = sheet.columns
+        sheet.index += 1
+        sheet.sort_index(inplace=True)
+        sheet.columns = list(range(len(sheet.columns)))
 
-        # #Structural-anchor-based Extraction
-        # sheet = sheet_compressor.anchor(sheet)
+        #Structural-anchor-based Extraction
+        sheet = sheet_compressor.anchor(sheet)
 
         # #Encoding 
         markdown = sheet_compressor.encode(wb, sheet) #Paper encodes first then anchors; I chose to do this in reverse
@@ -50,8 +50,8 @@ class SpreadsheetLLMWrapper:
         except RecursionError:
             return
 
-        # # #Inverted-index Translation
-        # compress_dict = sheet_compressor.inverted_index(markdown)
+        # #Inverted-index Translation
+        compress_dict = sheet_compressor.inverted_index(markdown)
 
         return areas, markdown
 
