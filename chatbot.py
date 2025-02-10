@@ -31,12 +31,6 @@ def identify_table(wrapper, model_name):
 args = Arguments('gpt-3.5', False, None)
 wrapper = SpreadsheetLLMWrapper()
 
-with st.sidebar:
-    file = st.file_uploader("Upload Spreadsheet", type='xls')
-    model_name = 'gpt-4'
-    # if st.button('Identify Number of Tables'):
-    #     st.session_state.messages.append({"role": "user", "content": "Identify Number of Tables"})
-    #     identify_table(wrapper, model_name)
 
 st.title("SpreadsheetGPT")
 if "messages" not in st.session_state:
