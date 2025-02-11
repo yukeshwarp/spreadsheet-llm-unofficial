@@ -65,9 +65,20 @@ if uploaded_file is not None:
 
                 messages = [
                     {"role": "system", "content": """You are an AI assistant that helps people find information, based on the uploaded spreadsheet data."""},
-                    {"role": "user", "content": f"""Here is some spreadsheet data:\n{data_json}\n\n 
-                                                    Data about the tables: {total_table}\n\n 
-                                                    Question: {question}"""}
+                    {"role": "user", "content": f"""
+                        INSTRUCTION:
+                        You are a highly skilled AI assistant specializing in spreadsheet data analysis. Your task is to extract accurate answers from structured table data based on user queries.
+                        The provided input consists of tabular data formatted as a string, where each cell is represented by a pair consisting of a cell address and its content, separated by a comma (e.g., 'A1,Year').
+                        Cells are organized in a row-major order and are separated by '|', like 'A1,Year|A2,Profit'. Some cells may have empty values, represented as 'A1, |A2,Profit'.
+                        
+                        Your response should:
+                        - Accurately interpret the data in the table.
+                        - Provide numerical summaries with **consistent totals, averages, min, max, and standard deviations**.
+                        - Identify relevant patterns, trends, and numerical insights where applicable.
+                        - Ensure all calculations reference the precomputed metrics.
+                        Here is some spreadsheet data:\n{data_json}\n\n 
+                        Data about the tables: {total_table}\n\n 
+                        Question: {question}"""}
                 ]
 
                 response_stream = client.chat.completions.create(
