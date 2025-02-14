@@ -33,7 +33,7 @@ args = Arguments('gpt-3.5', False, None)
 wrapper = SpreadsheetLLMWrapper()
 
 
-st.title("SpreadsheetGPT")
+st.title("Excel Intelligence")
 if "messages" not in st.session_state:
     st.session_state["messages"] = [{"role": "assistant", "content": "How can I help you?"}]
 
